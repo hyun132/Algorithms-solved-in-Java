@@ -8,7 +8,7 @@ public class Problem1519 {
     public void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int inputCase = Integer.parseInt(br.readLine().strip());
+        int inputCase = Integer.parseInt(br.readLine().trim());
         int answer = 0;
         for (int i=0;i<inputCase;i++){
             int[] lengthArr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
