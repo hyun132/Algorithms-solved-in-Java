@@ -1,0 +1,30 @@
+package leetcode.tryeasyproblem;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Boj11286 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int repeat = Integer.parseInt(br.readLine().trim());
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                if(o1[0] == o2[0]) return o1[1] - o2[1];
+                else return o1[0] - o2[0];
+            }
+        });
+
+        for (int i = 0; i < repeat; i++) {
+            int num = Integer.parseInt(br.readLine().trim());
+            if (num == 0 && pq.isEmpty()) System.out.println(0);
+            else if (num == 0) System.out.println(pq.poll()[1]);
+            else pq.add(new int[]{Math.abs(num), num});
+        }
+    }
+}
