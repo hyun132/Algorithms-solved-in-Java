@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+
+        HashMap<Integer, ArrayList<Integer>> graph = new HashMap<>();
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+
+
+        for (int i=1;i<n;i++){
+            int[] input = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+            if (!graph.containsKey(input[0])) graph.put(input[0],new ArrayList<>());
+            if (!graph.containsKey(input[1])) graph.put(input[1],new ArrayList<>());
+
+            graph.get(input[0]).add(input[1]);
+            graph.get(input[1]).add(input[0]);
+        }
+
+        int[] parentArr = new int[n+1];
+        q.offer(1);
+        while (!q.isEmpty()){
+            int cur = q.poll();
+
+            for(int nxt : graph.get(cur)){
+                if (parentArr[nxt]==0){
+                    parentArr[nxt] = cur;
+                    q.offer(nxt);
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i=2;i<=n;i++){
+            sb.append(parentArr[i]).append("\n");
+        }
+
+        System.out.println(sb.toString());
+    }
+}
